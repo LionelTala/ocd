@@ -1,0 +1,29 @@
+<main class="mx-auto max-w-3xl px-5 py-14">
+  <h1 class="text-4xl font-extrabold tracking-tight">{{ 'faq.title' | t }}</h1>
+  <p class="mt-2 text-ink-soft">{{ 'faq.subtitle' | t }}</p>
+
+  <div class="mt-10 border-t border-line">
+    @for (n of items; track n) {
+      <details class="group border-b border-line">
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-semibold focus-visible:outline-2 focus-visible:outline-brand-500 [&::-webkit-details-marker]:hidden"
+        >
+          {{ 'faq.q' + n | t }}
+          <svg lucideChevronDown class="size-5 shrink-0 text-brand-500 transition-transform group-open:rotate-180"></svg>
+        </summary>
+        <p class="pb-5 pr-9 text-ink-soft">{{ 'faq.a' + n | t }}</p>
+      </details>
+    }
+  </div>
+
+  <div class="mt-12 text-center">
+    <p class="text-lg font-bold">{{ 'faq.moreTitle' | t }}</p>
+    <a
+      routerLink="/contact"
+      class="mt-4 inline-flex h-12 items-center gap-2 rounded-full border border-brand-500 px-7 font-semibold text-brand-600 hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+    >
+      {{ 'faq.moreCta' | t }}
+      <svg lucideArrowRight class="size-5"></svg>
+    </a>
+  </div>
+</main>

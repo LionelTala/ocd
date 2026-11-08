@@ -1,0 +1,69 @@
+<main class="relative isolate overflow-hidden">
+  <svg class="pointer-events-none absolute -left-28 -top-20 -z-10 w-96 text-brand-100/70" viewBox="0 0 400 400" fill="currentColor" aria-hidden="true">
+    <path d="M310 40c60 50 70 140 20 210s-150 110-230 70S-20 190 30 100 250-10 310 40Z" />
+  </svg>
+  <svg class="pointer-events-none absolute -bottom-24 -right-28 -z-10 w-96 rotate-180 text-brand-100/70" viewBox="0 0 400 400" fill="currentColor" aria-hidden="true">
+    <path d="M310 40c60 50 70 140 20 210s-150 110-230 70S-20 190 30 100 250-10 310 40Z" />
+  </svg>
+
+  <div class="mx-auto max-w-2xl px-5 py-14 text-center">
+    <div class="relative mx-auto h-44 w-80 max-w-full" aria-hidden="true">
+      @for (c of confetti; track $index) {
+        <span
+          class="absolute h-1.5 rounded-full bg-brand-500/80"
+          [style.left]="c.x"
+          [style.top]="c.y"
+          [style.width.px]="c.w"
+          [style.transform]="'rotate(' + c.r + 'deg)'"
+        ></span>
+      }
+      <span class="absolute left-1/2 top-1/2 flex size-36 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand-100/70">
+        <span class="flex size-28 items-center justify-center rounded-full border border-brand-100 bg-brand-50">
+          <svg lucideCheck class="size-14 text-brand-500" [attr.stroke-width]="3"></svg>
+        </span>
+      </span>
+    </div>
+
+    <h1 class="mt-4 text-4xl font-extrabold tracking-tight">{{ 'confirm.title' | t }}</h1>
+    <p class="mx-auto mt-3 max-w-xs text-ink-soft">{{ 'confirm.message' | t }}</p>
+
+    @if (recap(); as r) {
+      <dl class="mx-auto mt-10 grid max-w-xl overflow-hidden rounded-2xl border border-line bg-white text-left shadow-sm sm:grid-cols-2 sm:divide-x sm:divide-line">
+        <div class="flex items-start gap-3 p-5">
+          <svg lucideCalendarDays class="mt-0.5 size-7 shrink-0 text-brand-500"></svg>
+          <div>
+            <dt class="text-sm font-semibold">{{ 'confirm.dateTime' | t }}</dt>
+            <dd class="mt-1 text-sm first-letter:capitalize">{{ r.date }}</dd>
+            <dd class="text-sm">{{ r.time }}</dd>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 border-t border-line p-5 sm:border-t-0">
+          <svg lucideStar class="mt-0.5 size-7 shrink-0 fill-brand-500 text-brand-500"></svg>
+          <div>
+            <dt class="text-sm font-semibold">{{ 'confirm.offer' | t }}</dt>
+            <dd class="mt-1 text-sm font-bold">{{ r.pack }}</dd>
+            <dd class="text-sm font-bold">{{ r.price }}</dd>
+          </div>
+        </div>
+      </dl>
+
+      @if (r.needsApproval) {
+        <p class="mx-auto mt-4 max-w-md text-xs text-ink-soft">{{ 'confirm.bovannNote' | t }}</p>
+      }
+    }
+
+    <button
+      type="button"
+      (click)="backHome()"
+      class="mt-10 inline-flex h-12 items-center gap-2 rounded-full bg-brand-500 px-8 font-semibold text-white hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+    >
+      {{ 'confirm.home' | t }}
+      <svg lucideArrowRight class="size-5"></svg>
+    </button>
+
+    <p class="mt-6 flex items-center justify-center gap-1.5 text-sm text-ink-soft">
+      {{ 'confirm.thanks' | t }}
+      <svg lucideHeart class="size-4 fill-red-500 text-red-500"></svg>
+    </p>
+  </div>
+</main>

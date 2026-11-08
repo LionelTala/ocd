@@ -1,0 +1,115 @@
+<main class="mx-auto grid max-w-5xl gap-12 px-5 py-14 md:grid-cols-2">
+  <section>
+    <h1 class="text-4xl font-extrabold tracking-tight">{{ 'contact.title' | t }}</h1>
+    <p class="mt-2 text-ink-soft">{{ 'contact.subtitle' | t }}</p>
+
+    <ul class="mt-10 space-y-6">
+      <li class="flex items-start gap-4">
+        <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-500">
+          <svg lucidePhone class="size-5"></svg>
+        </span>
+        <div>
+          <p class="text-sm text-ink-soft">{{ 'form.phone' | t }}</p>
+          <a [href]="whatsapp" target="_blank" rel="noopener" class="font-semibold hover:text-brand-600">
+            {{ info.phoneDisplay }}
+          </a>
+        </div>
+      </li>
+      <li class="flex items-start gap-4">
+        <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-500">
+          <svg lucideMail class="size-5"></svg>
+        </span>
+        <div>
+          <p class="text-sm text-ink-soft">{{ 'form.email' | t }}</p>
+          <a [href]="'mailto:' + info.email" class="font-semibold hover:text-brand-600">{{ info.email }}</a>
+        </div>
+      </li>
+      <li class="flex items-start gap-4">
+        <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-500">
+          <svg lucideMapPin class="size-5"></svg>
+        </span>
+        <div>
+          <p class="text-sm text-ink-soft">{{ 'contact.address' | t }}</p>
+          <p class="font-semibold">{{ info.city }}</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    @if (sent()) {
+      <div class="flex h-full flex-col items-center justify-center text-center">
+        <span class="flex size-16 items-center justify-center rounded-full bg-brand-500 text-white">
+          <svg lucideCheck class="size-8" [attr.stroke-width]="3"></svg>
+        </span>
+        <h2 class="mt-5 text-2xl font-extrabold">{{ 'contact.sentTitle' | t }}</h2>
+        <p class="mt-1 text-ink-soft">{{ 'contact.sentDesc' | t }}</p>
+        <button
+          type="button"
+          (click)="again()"
+          class="mt-6 inline-flex h-11 items-center rounded-full border border-line px-6 text-sm font-semibold hover:border-brand-500"
+        >
+          {{ 'contact.again' | t }}
+        </button>
+      </div>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="space-y-5">
+        <div>
+          <label for="c-name" class="text-sm font-medium">
+            {{ 'form.fullName' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="c-name" type="text" formControlName="fullName" autocomplete="name"
+            [placeholder]="'form.ph.fullName' | t"
+            class="mt-1.5 h-11" [class]="fieldClass('fullName')"
+          />
+          @if (errorKey('fullName'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+
+        <div>
+          <label for="c-email" class="text-sm font-medium">
+            {{ 'form.email' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="c-email" type="email" formControlName="email" autocomplete="email" inputmode="email"
+            [placeholder]="'form.ph.email' | t"
+            class="mt-1.5 h-11" [class]="fieldClass('email')"
+          />
+          @if (errorKey('email'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+
+        <div>
+          <label for="c-message" class="text-sm font-medium">
+            {{ 'contact.message' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <textarea
+            id="c-message" rows="5" formControlName="message"
+            [placeholder]="'contact.messagePh' | t"
+            class="mt-1.5 py-3" [class]="fieldClass('message')"
+          ></textarea>
+          @if (errorKey('message'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+
+        <button
+          type="submit"
+          class="inline-flex h-12 items-center gap-2 rounded-full bg-brand-500 px-7 font-semibold text-white hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+        >
+          {{ 'contact.send' | t }}
+          <svg lucideArrowRight class="size-5"></svg>
+        </button>
+      </form>
+    }
+  </section>
+</main>

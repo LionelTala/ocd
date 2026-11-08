@@ -1,0 +1,181 @@
+<main class="mx-auto max-w-4xl px-5 py-10">
+  <app-stepper [current]="4" />
+
+  <div class="mt-10 text-center">
+    <h1 class="text-2xl font-extrabold tracking-tight">{{ 'form.title' | t }}</h1>
+    <p class="mt-1 text-ink-soft">{{ 'form.subtitle' | t }}</p>
+  </div>
+
+  @if (summary(); as s) {
+    <p class="mx-auto mt-6 flex max-w-2xl flex-wrap justify-center gap-x-6 gap-y-1 rounded-xl bg-brand-50 px-4 py-3 text-sm">
+      <span class="font-semibold first-letter:capitalize">{{ s.date }}</span>
+      <span>{{ s.slot }}</span>
+      <span class="font-semibold text-brand-700">{{ s.pack }}, {{ s.price }}</span>
+    </p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="mt-8">
+    <p class="mb-6 text-sm text-ink-soft">{{ 'form.requiredHint' | t }}</p>
+
+    <div class="grid gap-x-10 gap-y-8 md:grid-cols-2">
+      <fieldset class="space-y-5">
+        <legend class="mb-3 text-base font-bold">{{ 'form.personal' | t }}</legend>
+
+        <div>
+          <label for="fullName" class="text-sm font-medium">
+            {{ 'form.fullName' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <div class="relative mt-1.5">
+            <svg lucideUser class="pointer-events-none absolute left-3 top-3 size-5 text-ink-soft"></svg>
+            <input
+              id="fullName" type="text" formControlName="fullName" autocomplete="name"
+              [placeholder]="'form.ph.fullName' | t"
+              aria-required="true" [attr.aria-invalid]="errorKey('fullName') ? 'true' : null"
+              [class]="fieldClass('fullName', 'pr-3')"
+            />
+          </div>
+          @if (errorKey('fullName'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+
+        <div>
+          <label for="phone" class="text-sm font-medium">
+            {{ 'form.phone' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <div class="relative mt-1.5">
+            <svg lucidePhone class="pointer-events-none absolute left-3 top-3 size-5 text-ink-soft"></svg>
+            <input
+              id="phone" type="tel" formControlName="phone" autocomplete="tel" inputmode="tel"
+              [placeholder]="'form.ph.phone' | t"
+              aria-required="true" [attr.aria-invalid]="errorKey('phone') ? 'true' : null"
+              [class]="fieldClass('phone', 'pr-3')"
+            />
+          </div>
+          @if (errorKey('phone'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+
+        <div>
+          <label for="email" class="text-sm font-medium">
+            {{ 'form.email' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <div class="relative mt-1.5">
+            <svg lucideMail class="pointer-events-none absolute left-3 top-3 size-5 text-ink-soft"></svg>
+            <input
+              id="email" type="email" formControlName="email" autocomplete="email" inputmode="email"
+              [placeholder]="'form.ph.email' | t"
+              aria-required="true" [attr.aria-invalid]="errorKey('email') ? 'true' : null"
+              [class]="fieldClass('email', 'pr-3')"
+            />
+          </div>
+          @if (errorKey('email'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+      </fieldset>
+
+      <fieldset class="space-y-5">
+        <legend class="mb-3 text-base font-bold">{{ 'form.business' | t }}</legend>
+
+        <div>
+          <label for="businessName" class="text-sm font-medium">
+            {{ 'form.businessName' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <div class="relative mt-1.5">
+            <svg lucideStore class="pointer-events-none absolute left-3 top-3 size-5 text-ink-soft"></svg>
+            <input
+              id="businessName" type="text" formControlName="businessName" autocomplete="organization"
+              [placeholder]="'form.ph.businessName' | t"
+              aria-required="true" [attr.aria-invalid]="errorKey('businessName') ? 'true' : null"
+              [class]="fieldClass('businessName', 'pr-3')"
+            />
+          </div>
+          @if (errorKey('businessName'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+
+        <div>
+          <label for="activity" class="text-sm font-medium">
+            {{ 'form.activity' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <div class="relative mt-1.5">
+            <svg lucideBriefcase class="pointer-events-none absolute left-3 top-3 size-5 text-ink-soft"></svg>
+            <select
+              id="activity" formControlName="activity"
+              aria-required="true" [attr.aria-invalid]="errorKey('activity') ? 'true' : null"
+              [class]="fieldClass('activity', 'appearance-none pr-10')"
+            >
+              <option value="" disabled>{{ 'form.select' | t }}</option>
+              @for (a of activities; track a.value) {
+                <option [value]="a.value">{{ i18n.l(a.label) }}</option>
+              }
+            </select>
+            <svg lucideChevronDown class="pointer-events-none absolute right-3 top-3 size-5 text-ink-soft"></svg>
+          </div>
+          @if (errorKey('activity'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+
+        <div>
+          <label for="city" class="text-sm font-medium">
+            {{ 'form.city' | t }} <span class="text-red-600" aria-hidden="true">*</span>
+          </label>
+          <div class="relative mt-1.5">
+            <svg lucideMapPin class="pointer-events-none absolute left-3 top-3 size-5 text-ink-soft"></svg>
+            <input
+              id="city" type="text" formControlName="city" autocomplete="address-level2"
+              [placeholder]="'form.ph.city' | t"
+              aria-required="true" [attr.aria-invalid]="errorKey('city') ? 'true' : null"
+              [class]="fieldClass('city', 'pr-3')"
+            />
+          </div>
+          @if (errorKey('city'); as k) {
+            <p class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+              <svg lucideCircleAlert class="size-4 shrink-0"></svg>{{ k | t }}
+            </p>
+          }
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="mt-8">
+      <label for="description" class="text-sm font-medium">{{ 'form.description' | t }}</label>
+      <textarea
+        id="description" rows="4" formControlName="description"
+        [placeholder]="'form.descriptionPlaceholder' | t"
+        class="mt-1.5 w-full rounded-lg border border-line bg-white p-3 text-sm placeholder:text-ink-soft/60 focus:outline-2 focus:outline-brand-500"
+      ></textarea>
+    </div>
+
+    <div class="mt-10 flex items-center justify-between">
+      <a
+        routerLink="/reserver/offres"
+        class="inline-flex h-11 items-center gap-2 rounded-full border border-line px-5 text-sm font-semibold hover:border-brand-500"
+      >
+        <svg lucideArrowLeft class="size-4"></svg>
+        {{ 'common.back' | t }}
+      </a>
+      <button
+        type="submit"
+        class="inline-flex h-11 items-center gap-2 rounded-full bg-brand-500 px-6 text-sm font-semibold text-white hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+      >
+        {{ 'form.submit' | t }}
+        <svg lucideArrowRight class="size-4"></svg>
+      </button>
+    </div>
+  </form>
+</main>

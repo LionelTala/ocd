@@ -1,0 +1,61 @@
+<main class="mx-auto max-w-4xl px-5 py-10">
+  <app-stepper [current]="2" />
+
+  <div class="mt-10 text-center">
+    <h1 class="text-2xl font-extrabold tracking-tight">{{ 'date.title' | t }}</h1>
+    <p class="mt-1 text-ink-soft">{{ 'date.subtitle' | t }}</p>
+  </div>
+
+  <div class="mt-8 grid items-start gap-6 md:grid-cols-2">
+    <div class="flex justify-center md:justify-end">
+      <app-calendar [selected]="booking.date()" (picked)="booking.selectDate($event)" />
+    </div>
+
+    <section class="w-full max-w-sm">
+      <h2 class="font-bold">{{ 'slots.title' | t }}</h2>
+      @if (dateLabel(); as label) {
+        <p class="text-sm text-ink-soft">{{ 'slots.for' | t }} {{ label }}</p>
+        <ul class="mt-4 grid gap-3">
+          @for (slot of slots; track slot) {
+            <li>
+              <button
+                type="button"
+                (click)="booking.selectSlot(slot)"
+                [attr.aria-pressed]="booking.slot() === slot"
+                class="h-11 w-full rounded-full border text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+                [class]="
+                  booking.slot() === slot
+                    ? 'border-brand-500 bg-brand-500 text-white'
+                    : 'border-line bg-white hover:border-brand-500'
+                "
+              >
+                {{ slotLabel(slot) }}
+              </button>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="mt-4 text-sm text-ink-soft">{{ 'slots.empty' | t }}</p>
+      }
+    </section>
+  </div>
+
+  <div class="mt-10 flex items-center justify-between">
+    <a
+      routerLink="/"
+      class="inline-flex h-11 items-center gap-2 rounded-full border border-line px-5 text-sm font-semibold hover:border-brand-500"
+    >
+      <svg lucideArrowLeft class="size-4"></svg>
+      {{ 'common.back' | t }}
+    </a>
+    <button
+      type="button"
+       [disabled]="!booking.slot()"
+      (click)="next()"
+      class="inline-flex h-11 items-center gap-2 rounded-full bg-brand-500 px-6 text-sm font-semibold text-white hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-brand-500"
+    >
+      {{ 'common.continue' | t }}
+      <svg lucideArrowRight class="size-4"></svg>
+    </button>
+  </div>
+</main>

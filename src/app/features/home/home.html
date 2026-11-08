@@ -1,0 +1,83 @@
+<main>
+  <section class="mx-auto grid max-w-6xl items-center gap-10 px-5 py-12 md:grid-cols-2 md:py-20">
+    <svg width="0" height="0" class="absolute" aria-hidden="true">
+      <clipPath id="heroShape" clipPathUnits="objectBoundingBox">
+        <path d="M0.22 0 H1 V1 H0.06 C0.14 0.75 0.02 0.35 0.22 0 Z" />
+      </clipPath>
+    </svg>
+
+    <div class="pb-6 md:pb-16">
+      <h1 class="max-w-md text-5xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl">
+        {{ 'hero.titleBefore' | t }}
+        <span class="text-brand-500">{{ 'hero.titleAccent' | t }}</span>
+        {{ 'hero.titleAfter' | t }}
+      </h1>
+      <p class="mt-6 max-w-sm text-lg text-ink-soft">{{ 'hero.desc' | t }}</p>
+      <a
+        href="#choose"
+        class="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-brand-500 px-7 font-semibold text-white hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+      >
+        {{ 'cta.bookNow' | t }}
+        <svg lucideArrowRight class="size-5"></svg>
+      </a>
+    </div>
+
+    <img
+      src="images/hero.jpg"
+      [alt]="'hero.imageAlt' | t"
+      class="aspect-[4/3] w-full rounded-3xl object-cover"
+      fetchpriority="high"
+    />
+  </section>
+    <section id="choose" class="mx-auto grid max-w-6xl gap-5 px-5 pb-16 md:grid-cols-2">
+    <article class="flex flex-col overflow-hidden rounded-2xl border border-line bg-white sm:flex-row">
+      <img
+        src="images/onsite.jpg"
+        [alt]="'onsite.imageAlt' | t"
+        class="h-44 w-full object-cover sm:h-auto sm:w-2/5"
+        loading="lazy"
+      />
+      <div class="flex flex-1 flex-col p-5">
+        <h2 class="flex items-center gap-2 text-lg font-bold">
+          <svg lucideMapPin class="size-5 text-brand-500"></svg>
+          {{ 'onsite.title' | t }}
+        </h2>
+        <p class="mt-1 text-sm font-semibold">{{ 'onsite.place' | t }}</p>
+        <p class="mt-2 flex-1 text-sm text-ink-soft">{{ 'onsite.desc' | t }}</p>
+        <button
+          type="button"
+          (click)="choose('onsite')"
+          class="mt-4 inline-flex h-10 items-center justify-center gap-2 rounded-full border border-brand-500 px-5 text-sm font-semibold text-brand-600 hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+        >
+          {{ 'option.choose' | t }}
+          <svg lucideArrowRight class="size-4"></svg>
+        </button>
+      </div>
+    </article>
+
+    <article class="flex flex-col overflow-hidden rounded-2xl border border-line bg-white sm:flex-row">
+      <img
+        src="images/remote.jpg"
+        [alt]="'remote.imageAlt' | t"
+        class="h-44 w-full object-cover sm:h-auto sm:w-2/5"
+        loading="lazy"
+      />
+      <div class="flex flex-1 flex-col p-5">
+        <h2 class="flex items-center gap-2 text-lg font-bold">
+          <svg lucideGlobe class="size-5 text-brand-500"></svg>
+          {{ 'remote.title' | t }}
+        </h2>
+        <p class="mt-1 text-sm font-semibold">{{ 'remote.place' | t }}</p>
+        <p class="mt-2 flex-1 text-sm text-ink-soft">{{ 'remote.desc' | t }}</p>
+        <button
+          type="button"
+          (click)="choose('remote')"
+          class="mt-4 inline-flex h-10 items-center justify-center gap-2 rounded-full border border-brand-500 px-5 text-sm font-semibold text-brand-600 hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+        >
+          {{ 'option.choose' | t }}
+          <svg lucideArrowRight class="size-4"></svg>
+        </button>
+      </div>
+    </article>
+  </section>
+</main>

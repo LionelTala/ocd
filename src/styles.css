@@ -1,3 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
 
-@import 'tailwindcss';
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #fff4ec;
+  --color-brand-100: #ffe6d3;
+  --color-brand-500: #f26a1b;
+  --color-brand-600: #d9570e;
+  --color-brand-700: #b8470a;
+
+  --color-ivory: #fffaf5;
+  --color-ink: #1f1a17;
+  --color-ink-soft: #5c524b;
+  --color-line: #efe4da;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
